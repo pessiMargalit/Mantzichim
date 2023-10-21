@@ -70,9 +70,6 @@ body{
     }
 }
 
-.div{
-    height: 800px;
-    border-style: solid;
-    border-color: aqua;
-    margin-top: 200px;
+.showall{
+    margin-top: 400px;
 }

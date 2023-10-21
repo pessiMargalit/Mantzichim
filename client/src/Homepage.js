@@ -1,6 +1,7 @@
 import "./style/homepage.css";
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, animateScroll as scroll } from 'react-scroll';
+import ShowAll from './showAll/ShowAll';
 
 export function Homepage() {
     const [scrolling, setScrolling] = useState(false);
@@ -39,7 +40,7 @@ export function Homepage() {
                 <div className="content">
                     <h2 className="text">אמרת חז"ל יפה על הנושא של המשניות והקדיש""</h2>
                     <div className="down">
-                        <h1></h1>
+                        <h1>בוא וקח חלק...</h1>
 
                         <svg id="svg-container" onClick={scrollToBottom} xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
@@ -47,7 +48,12 @@ export function Homepage() {
                         </svg>
                     </div>
                 </div>
-                <div ref={ref} id="my-div" className="div"></div>
+                
+                <div ref={ref} id="my-div" className="showall">
+                    <br></br><br></br><br></br><br></br><br></br><br></br>
+                    <h1>משניות לבחירה או משהו בסגנון...</h1>
+                <ShowAll></ShowAll>
+                </div>
             </div >
         </>
     );
