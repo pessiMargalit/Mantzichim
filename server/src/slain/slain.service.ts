@@ -34,4 +34,29 @@ export class SlainService {
         return createdslain.save();
     }
 
+
+    //---Bat Sheva---
+
+    async get_slain_name(data: any): Promise<Object> {
+        let name_for_masechtot = "";
+        let name_for_kadish = "";
+        if (data.masechtot_arr.length != 0) {
+            //כאן האלגוריתם שליפה של מסכתות של הדסה ותמר
+            //נא ליצא את האלגוריתם לפונקציה
+            //וכמובן לא לשכוח א-סינכרוני
+            name_for_masechtot = "the name from the algorithem"
+        }
+        if (data.kadish == true) {
+            //כאן האלגוריתם שליפה של הקדיש של הדסה ותמר
+            //נא ליצא את האלגוריתם לפונקציה
+            //וכמובן לא לשכוח א-סינכרוני
+            name_for_kadish = "the name from the algorithem";
+        }
+        return {
+            "name_for_masechtot": name_for_masechtot,
+            "name_for_kadish": name_for_kadish
+        };
+    }
+
+
 }

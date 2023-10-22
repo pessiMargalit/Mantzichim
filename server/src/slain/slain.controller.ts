@@ -38,4 +38,14 @@ export class SlainController {
     async add_masechtot(@Body() masechtot_arr: Array<String>){
         // לעדכן
     }
+    //---Bat Sheva---
+    
+    @Post()
+    async get_slain_name(@Body() data: Object){
+        return this.slainService.get_slain_name(data);
+    }
+    // @Post()
+    // async get_slain_name_for_kadish(@Body() masechtot_arr: String){
+    //     return this.slainService.get_slain_name_for_kadish(masechtot_arr);
+    // }
 }
