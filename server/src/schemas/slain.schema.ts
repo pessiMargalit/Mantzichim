@@ -15,11 +15,9 @@ export class Slain {
   @Prop({type: Boolean, trim: true})
   kadish: boolean | null
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, required: true})
+  @Prop({type: mongoose.Schema.Types.ObjectId, required: false})
   slain_id: ObjectId
 
-//   @Prop({required: true})
-//   class: Number
 }
 
 export const SlainSchema = SchemaFactory.createForClass(Slain);

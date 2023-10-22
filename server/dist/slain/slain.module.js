@@ -6,23 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.SlainModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
-const slain_module_1 = require("./slain/slain.module");
+const slain_service_1 = require("./slain.service");
 const mongoose_1 = require("@nestjs/mongoose");
-let AppModule = class AppModule {
+const slain_schema_1 = require("../schemas/slain.schema");
+const slain_controller_1 = require("./slain.controller");
+let SlainModule = class SlainModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.SlainModule = SlainModule;
+exports.SlainModule = SlainModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            slain_module_1.SlainModule,
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://rut05567:GjtGaQuNlcQ4kUe7@cluster0.n1urltn.mongodb.net/Mantzichim'),
+            mongoose_1.MongooseModule.forFeature([{ name: 'Slain', schema: slain_schema_1.SlainSchema }])
         ],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [slain_service_1.SlainService],
+        controllers: [slain_controller_1.SlainController]
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], SlainModule);
+//# sourceMappingURL=slain.module.js.map
