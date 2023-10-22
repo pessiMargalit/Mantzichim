@@ -18,7 +18,7 @@ export function Homepage() {
     }, []);
 
     const handleScroll = () => {
-        if (window.scrollY > 100) {
+        if (window.scrollY >500) {
             setScrolling(true);
             console.log("scroll: ", scrolling);
         } else {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import "./ShowAll.css";
+import "../style/ShowAll.css";
 import { Button } from 'react-bootstrap';
 
 const mishnayot = [
   {
     id: "mishnah1",
-    label: "סדר זרעים",
+    label: ":סדר זרעים",
     options: [
       { value: "option1", label: "ברכות" },
       { value: "option2", label: "פאה" },
@@ -23,7 +23,7 @@ const mishnayot = [
   },
   {
     id: "mishnah2",
-    label: "סדר מועד",
+    label: ":סדר מועד",
     options: [
       { value: "option1", label: "שבת" },
       { value: "option2", label: "עירובין" },
@@ -40,7 +40,7 @@ const mishnayot = [
   },
   {
     id: "mishnah3",
-    label: "סדר נשים",
+    label: ":סדר נשים",
     options: [
       { value: "option1", label: "יבמות" },
       { value: "option2", label: "כתובות" },
@@ -53,7 +53,7 @@ const mishnayot = [
   },
   {
     id: "mishnah4",
-    label: "סדר נזיקין",
+    label: ":סדר נזיקין",
     options: [
       { value: "option1", label: "בבא קמא" },
       { value: "option2", label: "בבא מציעא" },
@@ -69,7 +69,7 @@ const mishnayot = [
   },
   {
     id: "mishnah5",
-    label: "סדר קודשים",
+    label: ":סדר קודשים",
     options: [
       { value: "option1", label: "זבחים" },
       { value: "option2", label: "מנחות" },
@@ -86,7 +86,7 @@ const mishnayot = [
   },
   {
     id: "mishnah6",
-    label: "סדר טהרה",
+    label: ":סדר טהרה",
     options: [
       { value: "option1", label: "כלים" },
       { value: "option2", label: "אוהלות" },
@@ -115,12 +115,13 @@ const ShowAll = () => {
 
   return (
     <>
-      <div className="selectDiv">
+      <div className="select-div">
         {mishnayot.map((mishnah) => (
           <div key={mishnah.id} className="mishnah-container">
             <h3>{mishnah.label}</h3>
             <div className="select-box">
               <Select
+                id="select"
                 isMulti
                 options={mishnah.options}
                 onChange={(selected) => handleChange(selected, mishnah.id)}
@@ -128,21 +129,24 @@ const ShowAll = () => {
             </div>
           </div>
         ))}
-        <div>
-          <h3>המשניות שזכית לקחת וללמוד</h3>
-          {allSelectedOptions.map((mishnah) => (
-            <div key={mishnah.value}>{mishnah.label}</div>
-          ))}
+        <div className="details-to-model">
+
+          <div className="with-kadish">
+            <h3>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h3>
+            <input
+              id="kadish"
+              name="kadish"
+              type="checkbox"
+            />
+          </div>
+          {allSelectedOptions.length > 0 ? <div>
+            <h3><>:</>המשניות שזכית לקחת וללמוד</h3>
+            {allSelectedOptions.map((mishnah) => (
+              <div key={mishnah.value}>{mishnah.label}</div>
+            ))}
+          </div> : <></>}
+          <Button variant="Light" id="Button">אישור</Button>
         </div>
-      </div>
-      <div className="withKadish">
-        <Button variant="Light" id="Button">אשמח לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</Button>
-        {/* <h3>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h3>
-        <input
-          id="kadish"
-          name="kadish"
-          type="checkbox"
-        /> */}
       </div>
     </>
   );
