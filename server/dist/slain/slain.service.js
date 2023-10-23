@@ -32,13 +32,28 @@ let SlainService = class SlainService {
     }
     async create(slainData) {
         const newSlain = {
-            slain_id: slainData.slain_id,
             name: slainData.name,
             masechtot_arr: slainData.masechtot_arr,
             kadish: slainData.kadish
         };
         const createdslain = new this.slainModel(newSlain);
         return createdslain.save();
+    }
+    async update_masechtot_for_slain(masechtot_arr) {
+    }
+    async get_slain_name(data) {
+        let name_for_masechtot = "";
+        let name_for_kadish = "";
+        if (data.masechtot_arr.length != 0) {
+            name_for_masechtot = "the name from the algorithem";
+        }
+        if (data.kadish == true) {
+            name_for_kadish = "the name from the algorithem";
+        }
+        return {
+            "name_for_masechtot": name_for_masechtot,
+            "name_for_kadish": name_for_kadish
+        };
     }
 };
 exports.SlainService = SlainService;

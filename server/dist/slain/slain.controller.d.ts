@@ -6,4 +6,6 @@ export declare class SlainController {
     getSlainsByQuery(conditions: any): Promise<import("../schemas/slain.schema").Slain[]>;
     findAll(): Promise<import("../schemas/slain.schema").Slain[]>;
     create(slainData: SlainDTO): Promise<import("../schemas/slain.schema").Slain>;
+    add_masechtot(masechtot_arr: Array<String>): Promise<void>;
+    get_slain_name(data: Object): Promise<Object>;
 }

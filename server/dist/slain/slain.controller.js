@@ -33,6 +33,12 @@ let SlainController = class SlainController {
     async create(slainData) {
         return this.slainService.create(slainData);
     }
+    async add_masechtot(masechtot_arr) {
+        return this.slainService.update_masechtot_for_slain(masechtot_arr);
+    }
+    async get_slain_name(data) {
+        return this.slainService.get_slain_name(data);
+    }
 };
 exports.SlainController = SlainController;
 __decorate([
@@ -55,6 +61,20 @@ __decorate([
     __metadata("design:paramtypes", [slain_dto_1.SlainDTO]),
     __metadata("design:returntype", Promise)
 ], SlainController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", Promise)
+], SlainController.prototype, "add_masechtot", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SlainController.prototype, "get_slain_name", null);
 exports.SlainController = SlainController = __decorate([
     (0, common_1.Controller)('slain'),
     __metadata("design:paramtypes", [slain_service_1.SlainService])
