@@ -1,0 +1,15 @@
+.modal{
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+}
+.text-modal{
+    margin: 2vw;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.modal-Button{
+    color: black !important;
+    background-color: blanchedalmond !important;
+    border-color: blanchedalmond !important;
+    font-weight: bolder;
+}
