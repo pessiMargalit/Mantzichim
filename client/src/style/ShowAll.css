@@ -1,5 +1,4 @@
 .select-div{
-/* border-radius: 16px;*/
 display: flex;
 flex-direction: row-reverse;
 flex-wrap: wrap;
@@ -9,12 +8,7 @@ justify-content: center;
 flex-basis: 40%;
 margin: 2vw;
 }
-/* #select :focus{
-  border-color: black !important;
-} */
-.select-box .select__control {
-  border: 2px solid black; /* שינוי הצבע לשחור */
-}
+
 .details-to-model{
  border-radius:16px ; 
  border-color: black;
