@@ -1,4 +1,7 @@
 import "./style/homepage.css";
+import logo1 from "./images/logo1.png";
+import logo2 from "./images/logo2.png";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import ShowAll from './showAll/ShowAll';
@@ -18,7 +21,7 @@ export function Homepage() {
     }, []);
 
     const handleScroll = () => {
-        if (window.scrollY >500) {
+        if (window.scrollY > 500) {
             setScrolling(true);
             console.log("scroll: ", scrolling);
         } else {
@@ -37,10 +40,16 @@ export function Homepage() {
         <>
             <div className="wrap-homepage">
                 <div className={scrolling ? 'header-scroll' : 'header'}>
-                    <h1 className="text">מנציחים - יהיה פה את הלוגו</h1>
-                    <h2 className="text">קצת הסבר על המיזם</h2>
+                    <br></br>
+                    <img src={logo1} style={{ width: "200px" }}></img>
+                    <br></br>
+                    <img src={logo2} style={{ width: "120px", marginLeft: "15px" }}></img>
+
                 </div>
+
                 <div className="content">
+                    <h1 className="text-title">מיזם מיוחד לסיומי ש"ס ואמירת קדיש לע"נ הקדושים הי"ד במלחמת חרבות ברזל</h1>
+                    <br></br>
                     <h2 className="text">{t1}</h2>
                     <h2 className="text">{t2}</h2>
                     <div className="down">
