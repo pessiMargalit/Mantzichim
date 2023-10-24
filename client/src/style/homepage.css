@@ -33,7 +33,7 @@ body{
 }
 .header-scroll {
     background-image: none;
-    background-color: rgb(0, 0, 0); /* Header color when scrolling */
+    background-color: rgb(0, 0, 0); /*Header color when scrolling*/
     position: fixed;
     top: 0;
     left: 0;
