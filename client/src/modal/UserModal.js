@@ -16,8 +16,7 @@ export function UserModal(props) {
     const handeShow = () => setShow(true);
 
     const slainName = useRef('');
-    // const masechtotName = props.masechtotName
-    const masechtotName = ['aaa', 'bbb', 'ccc'];
+    const masechtotName = props.masechtotName;
 
     const navigate = useNavigate();
 
@@ -34,7 +33,6 @@ export function UserModal(props) {
     }
 
 
-    const b = useRef(false);
     useEffect(() => {
         handeShow();
         getslainName()

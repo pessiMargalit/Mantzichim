@@ -15,7 +15,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage/>} />
             <Route path="/userModal" element={<UserModal/>} />
-
           </Routes>
       </Router>
       <Footer></Footer>
