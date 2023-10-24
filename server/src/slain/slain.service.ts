@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { MasechtotAndKadish } from 'src/DTO/masechtot_and_kadish.dto';
 import { SlainDTO } from 'src/DTO/slain.dto';
 import { Slain, SlainDocument } from 'src/schemas/slain.schema';
 
@@ -25,44 +26,39 @@ export class SlainService {
 
     async create(slainData: SlainDTO): Promise<Slain> {
         const newSlain = {
-            // slain_id: slainData.slain_id,
             name: slainData.name,
             masechtot_arr: slainData.masechtot_arr,
-            kadish: slainData.kadish
+            kadish: slainData.kadish,
+            yarzeit: slainData.yarzeit
         }
 
         const createdslain = new this.slainModel(newSlain);
         return createdslain.save();
     }
 
-    async update_masechtot_for_slain(masechtot_arr: Array<String>) {
+    async update_masechtot_for_slain(slain: Slain, masechtot_name: Array<String>) {
+        let all_masechtot = slain.masechtot_arr.concat(masechtot_name);
+        slain.masechtot_arr = all_masechtot;
 
+        return this.slainModel.updateOne(
+            { _id: slain._id },
+            {
+                $push: { masechtot_arr: { $each: masechtot_name } } 
+            }).exec();
     }
 
-    // Hadassa and Tamar
+    // Hadassah and Tamar
+
     // get: object with: array of masechtot, and boolean- kadish or not
     // like: {"masechtot_arr": ["כלים","אבות"], "kadish": true}
-    // return: name of slain for masechtot, and name of slain for kadish
-    async get_slains_name(data: any): Promise<Object> {
-        let name_for_masechtot = "";
-        let name_for_kadish = "";
-        if (data.masechtot_arr.length != 0) {
-            //כאן האלגוריתם שליפה של מסכתות של הדסה ותמר
-            //נא ליצא את האלגוריתם לפונקציה
-            //וכמובן לא לשכוח א-סינכרוני
-            name_for_masechtot = "the name from the algorithem"
-        }
-        if (data.kadish == true) {
-            //כאן האלגוריתם שליפה של הקדיש של הדסה ותמר
-            //נא ליצא את האלגוריתם לפונקציה
-            //וכמובן לא לשכוח א-סינכרוני
-            name_for_kadish = "the name from the algorithem";
-        }
-        return {
-            "name_for_masechtot": name_for_masechtot,
-            "name_for_kadish": name_for_kadish
-        };
-    }
+    // return: object of slain 
+    // async get_slain_to_pray(data: MasechtotAndKadish): Promise<Slain> {
+
+        //כאן האלגוריתם שליפה של החלל של הדסה ותמר
+        //נא ליצא את האלגוריתם לפונקציה
+        //וכמובן לא לשכוח א-סינכרוני
+
+    // }
 
 
 }

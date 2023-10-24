@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { SlainService } from './slain.service';
 import { SlainDTO } from 'src/DTO/slain.dto';
+import { MasechtotAndKadish } from 'src/DTO/masechtot_and_kadish.dto';
 
 @Controller('slain')
 export class SlainController {
@@ -35,13 +36,14 @@ export class SlainController {
         return this.slainService.create(slainData);
     }
 
-
-    @Get()
     // Hadassa and Tamar
+
     // get: object with: array of masechtot, and boolean- kadish or not
     // like: {"masechtot_arr": ["כלים","אבות"], "kadish": true}
-    // return: object of slain for masechtot, and object of slain for kadish
-    async get_slains_name(@Body() data: JSON) {
-        return this.slainService.get_slains_name(data);
-    }
+    // return: object of slain
+
+    // @Get()
+    // async get_slain_to_pray(@Body() data: MasechtotAndKadish) {
+    //     return this.slainService.get_slain_to_pray(data);
+    // }
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, {Document, ObjectId} from 'mongoose';
+import mongoose, {Date, Document, ObjectId} from 'mongoose';
 
 export type SlainDocument = Slain & Document;
 
@@ -10,13 +10,16 @@ export class Slain {
 
     
   @Prop({type: [String], trim: true})
-  masechtot_arr: string[] | null
+  masechtot_arr: Array<String> | null
 
   @Prop({type: Boolean, trim: true})
-  kadish: boolean | null
+  kadish: boolean 
+
+  @Prop({type: Date, trim: true})
+  yarzeit: Date
 
   @Prop({type: mongoose.Schema.Types.ObjectId, required: false})
-  slain_id: ObjectId
+  _id: ObjectId
 
 }
 
