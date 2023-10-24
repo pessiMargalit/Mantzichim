@@ -1,0 +1,57 @@
+.select-div{
+display: flex;
+flex-direction: row-reverse;
+flex-wrap: wrap;
+justify-content: center;
+}
+.mishnah-container{
+flex-basis: 40%;
+margin: 2vw;
+}
+
+.details-to-model{
+ border-radius:16px ; 
+ border-color: black;
+ border-style: groove;
+ background-color: rgb(255, 248, 239);
+ margin: 5vh;
+ padding: 3vh;
+}
+.with-kadish{
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+justify-content: center;
+}
+#kadish{
+  margin-top: 1vh;
+  width: 1.2vw;
+  accent-color:rgb(0, 0, 0) ;
+
+}
+#Button {
+  margin-top: 5vh;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 248, 239);
+  border-style: solid;
+  border-radius: 5px;
+  padding: 1vh 2vh 1vh 2vh;
+  font-size: medium;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .select-div {
+      width: 100% !important; 
+      flex-direction: column;
+    }
+
+    #kadish{
+      margin-top: 1vh;
+      width: 8vw;
+      accent-color:rgb(0, 0, 0) ;
+    
+    }
+    
+    
+  }
