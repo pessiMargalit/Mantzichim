@@ -25,14 +25,7 @@ export class SlainService {
     }
 
     async create(slainData: SlainDTO): Promise<Slain> {
-        const newSlain = {
-            name: slainData.name,
-            masechtot_arr: slainData.masechtot_arr,
-            kadish: slainData.kadish,
-            yarzeit: slainData.yarzeit
-        }
-
-        const createdslain = new this.slainModel(newSlain);
+        const createdslain = new this.slainModel(slainData);        
         return createdslain.save();
     }
 
@@ -40,13 +33,16 @@ export class SlainService {
         let all_masechtot = slain.masechtot_arr.concat(masechtot_name);
         slain.masechtot_arr = all_masechtot;
 
-        return this.slainModel.updateOne(
-            { _id: slain._id },
-            {
-                $push: { masechtot_arr: { $each: masechtot_name } } 
-            }).exec();
+        return true;
+    }
+        // return this.slainModel.updateOne(
+        //     { _id: slain._id },
+        //     {
+        //         $push: { masechtot_arr: { $each: masechtot_name } } 
+        //     }).exec();
     }
 
+    
     // Hadassah and Tamar
 
     // get: object with: array of masechtot, and boolean- kadish or not
@@ -61,4 +57,4 @@ export class SlainService {
     // }
 
 
-}
+

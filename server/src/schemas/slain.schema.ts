@@ -18,8 +18,8 @@ export class Slain {
   @Prop({type: Date, trim: true})
   yarzeit: Date
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, required: false})
-  _id: ObjectId
+  // @Prop({type: mongoose.Schema.Types.ObjectId, trim: true, required: false})
+  // _id: ObjectId
 
 }
 
