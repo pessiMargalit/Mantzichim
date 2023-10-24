@@ -18,8 +18,9 @@ export class Slain {
   @Prop({type: Date, trim: true})
   yarzeit: Date
 
-  // @Prop({type: mongoose.Schema.Types.ObjectId, trim: true, required: false})
-  // _id: ObjectId
+  //בתשבע: הוספתי פה שזה יכול להיות NULL אני מקווה שיעבוד
+  @Prop({type: mongoose.Schema.Types.ObjectId, trim: true, required: false})
+  _id: ObjectId | null
 
 }
 
