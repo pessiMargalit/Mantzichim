@@ -12,7 +12,7 @@ import {
 import { UserService } from './user.service';
 import { UserDTO } from 'src/DTO/user.dto';
 import { UserAndSlain } from 'src/DTO/user_and_slain.dto';
-import { SlainService } from 'src/slain/slain.service';
+import { SlainService } from '../slain/slain.service';
 
 @Controller('user')
 export class UserController {

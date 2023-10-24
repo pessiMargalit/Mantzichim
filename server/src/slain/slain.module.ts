@@ -9,7 +9,7 @@ import { SlainController } from './slain.controller';
     MongooseModule.forFeature([{ name: 'Slain', schema: SlainSchema }]) // 3. Setup the mongoose module to use the employee schema
   ],
   providers: [SlainService],
-  controllers: [SlainController]
-
+  controllers: [SlainController],
+  exports: [SlainService]
 })
 export class SlainModule {}
