@@ -7,22 +7,22 @@ import { join } from 'path';
 @Module({
   imports: [
     MailerModule.forRoot({
-      // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
-      // or
       transport: {
-        host: 'smtp.example.com',
-        secure: false,
+        service:'gmail',
+        // host: 'smtp.gmail.com',
+        // port:587,
+        // secure: false,
         auth: {
-          user: 'user@example.com',
-          pass: 'topsecret',
+          user: 'h0533185978@gmail.com',
+          pass: '213303731',
         },
       },
       defaults: {
-        from: '"No Reply" <noreply@example.com>',
+        from: 'h0533185978@gmail.com',
       },
       template: {
         dir: join(__dirname, 'templates'),
-        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
+        adapter: new HandlebarsAdapter(), 
         options: {
           strict: true,
         },
@@ -30,6 +30,6 @@ import { join } from 'path';
     }),
   ],
   providers: [MailService],
-  exports: [MailService], // 👈 export for DI
+  exports: [MailService],
 })
 export class MailModule {}
