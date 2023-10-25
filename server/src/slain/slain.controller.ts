@@ -44,6 +44,13 @@ export class SlainController {
 
     // @Get()
     // async get_slain_to_pray(@Body() data: MasechtotAndKadish) {
-    //     return this.slainService.get_slain_to_pray(data);
+        // return {
+        //     _id: "6538b4b9d5cb8345ea409444",
+        //         name: "ירון",
+        //         masechtot_arr: ["פרה"],
+        //         kadish: false,
+        //         yarzeit: Date.now()
+        //     }
+        // return this.slainService.get_slain_to_pray(data);
     // }
 }
