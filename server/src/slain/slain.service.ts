@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { MasechtotAndKadish } from 'src/DTO/masechtot_and_kadish.dto';
 import { SlainDTO } from 'src/DTO/slain.dto';
 import { Slain, SlainDocument } from 'src/schemas/slain.schema';
@@ -29,17 +29,17 @@ export class SlainService {
         return createdslain.save();
     }
 
-    async update_masechtot_for_slain(slain: Slain, masechtot_name: Array<String>) {
-        let all_masechtot = slain.masechtot_arr.concat(masechtot_name);
-        slain.masechtot_arr = all_masechtot;
+    async update_masechtot_for_slain(slain_id: ObjectId, masechtot_name: Array<String>) {
+        // let all_masechtot = slain.masechtot_arr.concat(masechtot_name);
+        // slain.masechtot_arr = all_masechtot;
 
-        return true;
-    }
-        // return this.slainModel.updateOne(
-        //     { _id: slain._id },
-        //     {
-        //         $push: { masechtot_arr: { $each: masechtot_name } } 
-        //     }).exec();
+        // console.log("slain: ", slain);
+        
+        return this.slainModel.updateOne(
+            { _id: slain_id },
+            {
+                $push: { masechtot_arr:  masechtot_name } 
+            }).exec();
     }
 
     
@@ -57,4 +57,4 @@ export class SlainService {
     // }
 
 
-
+}
