@@ -118,15 +118,13 @@ export function UserModal() {
     return (
         <>
             <Modal className="modal" show={show} onHide={() => setShow(false)}>
-                <h4>:שם החייל</h4>
-                <h4>{slain.current.name}</h4>
                 <form className="form" onSubmit={handleSubmit(onSubmit)} >
                     <>
                         <div class="form-row">
                             <div class="form-group">
 
                                 <input id="inputName" class="form-control" type="text" name="name" {...register('name')} />
-                                <label for="name" id="label">שם</label>
+                                <label for="name" id="label"><>:</>שם</label>
                                 <small class="text-danger">
                                     {errors?.name && errors.name.message}
                                 </small>
@@ -141,13 +139,14 @@ export function UserModal() {
                                     maxLength="255"
                                     {...register('email')}
                                 />
-                                <label id="label">דואר אלקטרוני</label>
+                                <label id="label"><>:</>מייל</label>
                                 <small class="text-danger">
                                     {errors?.email && errors.email.message}
                                 </small>
+
                                 {masechtotName != [] ? <div>
                                     <p>
-                                        :מסכתות
+                                        :המסכתות שזכית לקחת וללמוד
                                     </p>
                                     {masechtotName.map((masechet) => (
                                         <p>
@@ -156,15 +155,16 @@ export function UserModal() {
                                     ))}
                                 </div> : <></>}
 
-
+                                <h4 id="slainName">:לעילוי נשמת הקדוש</h4>
+                                <h4>{slain.current.name}</h4>
 
                             </div>
                         </div>
 
                     </>
-                    <input class="btn btn-outline-dark" type="submit"></input>
+                    <input className="submit-Button" type="submit"></input>
                 </form>
-                {isSuccess.current === true ? <h3></h3> : <></>}
+                {isSuccess.current === true ? <h3><>.</>אשריך, זכית לקחת חלק! תזכורת נשלחה למייל</h3> : <></>}
             </Modal>
         </>
     )
