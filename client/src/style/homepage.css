@@ -3,7 +3,7 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 80vh;
+    height: 60vh;
 }
 .text-title{
     color: rgb(255, 255, 255);
@@ -71,7 +71,7 @@ body{
 
 @media screen and (max-width: 768px){
     .content{
-        margin-top: 40%;
+        margin-top: 50%;
     }
     .down {
         margin-top: 10%;
@@ -80,8 +80,18 @@ body{
         margin-left: 10%;
         margin-right: 10%;
     }
-}
-
-.showall{
-    margin-top: 400px;
+    .text-title{
+        margin-left: 8%;
+        margin-right: 8%;
+        font-size: x-large;
+    }
+    #phone-text-cansle{
+        display: none;
+    }
+    .showall{
+        margin-top:150px;
+    }
+    body{
+        height: 80vh;
+    }
 }

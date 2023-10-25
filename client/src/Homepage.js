@@ -51,7 +51,7 @@ export function Homepage() {
                     <h1 className="text-title">מיזם מיוחד לסיומי ש"ס ואמירת קדיש לע"נ הקדושים הי"ד במלחמת חרבות ברזל</h1>
                     <br></br>
                     <h2 className="text">{t1}</h2>
-                    <h2 className="text">{t2}</h2>
+                    <h2 className="text" id="phone-text-cansle">{t2}</h2>
                     <div className="down">
                         <h1>הצטרף ללימוד משניות ואמירת קדיש</h1>
 
