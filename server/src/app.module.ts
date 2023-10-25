@@ -9,8 +9,9 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     SlainModule,
-    MongooseModule.forRoot('mongodb+srv://rut05567:GjtGaQuNlcQ4kUe7@cluster0.n1urltn.mongodb.net/Mantzichim'),
-    // MongooseModule.forRoot('mongodb+srv://miriamYom:m214256190@retirementsimulator.235lldc.mongodb.net/Mantzichim'),
+    // MongooseModule.forRoot('mongodb+srv://rut05567:GjtGaQuNlcQ4kUe7@cluster0.n1urltn.mongodb.net/Mantzichim'),
+    MongooseModule.forRoot('mongodb+srv://miriamYom:m214256190@retirementsimulator.235lldc.mongodb.net/Mantzichim'),
+
     UserModule,
   ],
   controllers: [AppController],
