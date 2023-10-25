@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import { useLocation, useNavigate} from "react-router-dom";
-import "../style/errorModal.css"
+import "../style/modal.css"
 
 export function ErrorModal() {
     const [show, setShow] = useState(true);
@@ -17,8 +17,9 @@ export function ErrorModal() {
 
     return (
         
-            <Modal id="modal" show={show} onHide={handleClose} >
+            <Modal className="modal" show={show} onHide={handleClose} >
                 <h4 className="text-modal">{error}</h4>
+                <button className="modal-Button" onClick={handleClose}>אישור</button>
             </Modal>
         
     );

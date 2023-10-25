@@ -1,6 +1,5 @@
 body{
-    /* background-image: url('../images/background\ \(2\).jpg'); */
-    background-image: url('../images/background\ \(2\).jpg');
+    background-image: url('../images/רקע\ 1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -33,7 +32,7 @@ body{
 }
 .header-scroll {
     background-image: none;
-    background-color: rgb(0, 0, 0); /*Header color when scrolling*/
+    background-color: rgb(0, 0, 0); 
     position: fixed;
     top: 0;
     left: 0;

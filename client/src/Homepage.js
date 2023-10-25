@@ -5,6 +5,7 @@ import logo2 from "./images/logo2.png";
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import ShowAll from './showAll/ShowAll';
+import { Footer } from "./Footer";
 
 export function Homepage() {
     const [scrolling, setScrolling] = useState(false);
@@ -23,7 +24,6 @@ export function Homepage() {
     const handleScroll = () => {
         if (window.scrollY > 500) {
             setScrolling(true);
-            console.log("scroll: ", scrolling);
         } else {
             setScrolling(false);
         }
@@ -68,6 +68,8 @@ export function Homepage() {
                     <ShowAll></ShowAll>
                 </div>
             </div >
+            <Footer />
+
         </>
     );
 }

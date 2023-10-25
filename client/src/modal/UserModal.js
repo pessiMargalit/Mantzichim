@@ -2,34 +2,58 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import axios from "axios";
-import '../style/userModal.css'
+// import '../style/userModal.css'
+import '../style/modal.css'
 
-export function UserModal(props) {
 
+export function UserModal() {
+
+    const baseUrl = process.env.REACT_APP_API_URL;
     const [show, setShow] = useState(false);
     const handeClose = () => setShow(false);
     const handeShow = () => setShow(true);
+    const location = useLocation();
+    const masechtotName = location.state.masechtotName;
+    const hasKadish = location.state.hasKadish;
 
-    const slainName = useRef('');
-    const masechtotName = props.masechtotName;
-
+    const slain = useRef({});
     const navigate = useNavigate();
 
     async function getslainName() {
-        await axios.get(`url${props}`)
+        const dataOfSlain = {
+            "masechtot_arr": masechtotName,
+            "kadish": hasKadish
+        }
+
+        await axios.get(`${baseUrl}/Slain`, dataOfSlain)
             .then((response) => {
-                if (response.status >= 200 & response.status <= 300)
+                if (response.status >= 200 & response.status <= 300) {
                     console.log(response.data);
-                slainName.current = response.data;
+                    slain.current = response.data;
+                }
             })
             .catch((error) => {
-                console.log(error);
-            }, []);
+                // if (error.response.status === 404) {
+                //     navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
+                // }
+                // else if (error.response.status >= 400 && error.response.status < 500) {
+                //     navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+
+                // }
+                // else if (error.response.status >= 500)
+                //  {
+                //     navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+                // }
+                // else{
+                //     navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+
+                // }
+            });
     }
 
 
@@ -41,7 +65,6 @@ export function UserModal(props) {
 
 
     const schema = yup.object().shape({
-        id: yup.string(),
         name: yup.string().required("נא להכניס ערך"),
         email: yup.string().default(' '),
 
@@ -54,14 +77,15 @@ export function UserModal(props) {
 
     const onSubmit = async (data) => {
 
-        if (props.masechtotName != []) {
-            data.masechtot_name = props.masechtotName;
+        if (masechtotName != []) {
+            data.masechtot_name = masechtotName;
+            data.slain_id = slain.current.id
         }
-        if (props.hasKadish == true) {
-            data.kadish_name = slainName.current
-            data.mishna_name = slainName.current
+        if (hasKadish === true) {
+            data.kadish = hasKadish
+            data.slain_id = slain.current.id
         }
-        await axios.post('url', data)
+        await axios.post(`${baseUrl}/User`, data)
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     console.log(response.data);
@@ -69,9 +93,22 @@ export function UserModal(props) {
                 }
             })
             .catch(error => {
-                console.log(error);
+                if (error.response.status === 404) {
+                    navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
+                }
+                else if (error.response.status >= 400 && error.response.status < 500) {
+                    navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+
+                }
+                else if (error.response.status >= 500)
+                 {
+                    navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+                }
+                else{
+                    navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+
+                }
             });
-        console.log(data);
         handeClose()
         navigate('/')
     }
@@ -79,24 +116,23 @@ export function UserModal(props) {
 
     return (
         <>
-            <Modal id="modal" show={show} onHide={() => setShow(false)} style={{ margin: "2vw" }}>
+            <Modal className="modal" show={show} onHide={() => setShow(false)}>
                 <h4>:שם החייל</h4>
-                <h4>{slainName.current}</h4>
-                <form className="form" onSubmit={handleSubmit(onSubmit)} style={{ width: "40vw", marginLeft: "6vw", marginRight: "3vw", padding: "10vh" }}>
+                <h4>{slain.current.name}</h4>
+                <form className="form" onSubmit={handleSubmit(onSubmit)} >
                     <>
-                        {/* <div style={{ "display": "flex" }}> */}
-
                         <div class="form-row">
                             <div class="form-group">
 
-                                <input class="form-control" type="text" name="name" id="name" {...register('name')} />
+                                <input id ="inputName" class="form-control" type="text" name="name" {...register('name')} />
                                 <label for="name" id="label">שם</label>
                                 <small class="text-danger">
                                     {errors?.name && errors.name.message}
                                 </small>
+                                <br></br>
 
                                 <input
-                                    id="form3Example1m"
+                                    id="inputEmail"
                                     class="form-control"
                                     type="email"
                                     name="email"
@@ -108,7 +144,7 @@ export function UserModal(props) {
                                 <small class="text-danger">
                                     {errors?.email && errors.email.message}
                                 </small>
-                                <div>
+                                {masechtotName != [] ? <div>
                                     <p>
                                         :מסכתות
                                     </p>
@@ -117,7 +153,7 @@ export function UserModal(props) {
                                             {masechet}
                                         </p>
                                     ))}
-                                </div>
+                                </div> : <></>}
 
 
 

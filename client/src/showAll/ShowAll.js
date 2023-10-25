@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Select from "react-select";
 import "../style/showAll.css";
 import { Button } from 'react-bootstrap';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const mishnayot = [
@@ -109,7 +109,7 @@ const mishnayot = [
 const ShowAll = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const checkHasKadish = document.getElementById("kadish");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const hasKadish_ = useRef(false)
 
   if (checkHasKadish) {
@@ -120,12 +120,11 @@ const ShowAll = () => {
 
   const openModal = () => {
     if(hasKadish_.current === false && allSelectedOptions.length === 0){
-      console.log("error");
-    // navigate('/errorModal', { state: { error: "עליך לבחור לפחות מסכתה אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך"} });
+    navigate('/error', { state: { error: "עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך"} });
     }
     else{
       const masechtotNames =  allSelectedOptions.map(option => option.label).flat();
-    // navigate('/userModal', { state: { masechtotName: masechtotNames, hasKadish:hasKadish_.current} });
+    navigate('/user-modal', { state: { masechtotName: masechtotNames, hasKadish:hasKadish_.current} });
     }
   }
 
@@ -167,7 +166,7 @@ const ShowAll = () => {
               <div key={mishnah.value}>{mishnah.label}</div>
             ))}
           </div> : <></>}
-          <Button variant="Light" id="Button" onClick={openModal()}>אישור</Button>
+          <Button variant="Light" id="Button" onClick={openModal}>אישור</Button>
         </div>
       </div>
     </>
