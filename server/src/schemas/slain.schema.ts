@@ -10,16 +10,13 @@ export class Slain {
 
     
   @Prop({type: [String], trim: true})
-  masechtot_arr: Array<String> | null
+  masechtot_arr: Array<String> 
 
   @Prop({type: Boolean, trim: true})
   kadish: boolean 
 
   @Prop({type: Date, trim: true})
   yarzeit: Date
-
-  // @Prop({type: mongoose.Schema.Types.ObjectId, trim: true, required: false})
-  // _id: ObjectId
 
 }
 
