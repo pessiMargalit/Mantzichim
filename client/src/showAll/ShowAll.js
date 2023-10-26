@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Select from "react-select";
 import "../style/showAll.css";
 import { useNavigate } from "react-router-dom";
-import candle from "../images/candle.jpg"
 
 const mishnayot = [
   {
