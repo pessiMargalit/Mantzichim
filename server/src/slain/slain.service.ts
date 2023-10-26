@@ -43,18 +43,12 @@ export class SlainService {
     }
 
     
-    // Hadassah and Tamar
-
-    // get: object with: array of masechtot, and boolean- kadish or not
-    // like: {"masechtot_arr": ["כלים","אבות"], "kadish": true}
-    // return: object of slain 
-    // async get_slain_to_pray(data: MasechtotAndKadish): Promise<Slain> {
-
-        //כאן האלגוריתם שליפה של החלל של הדסה ותמר
-        //נא ליצא את האלגוריתם לפונקציה
-        //וכמובן לא לשכוח א-סינכרוני
-
-    // }
-
+    async getSlainWithLowestMasechtotCount() {
+        console.log('in service');
+        
+        return await this.slainModel.findOne({'name':'אבו נשנש' });
+       
+        
+    }
 
 }

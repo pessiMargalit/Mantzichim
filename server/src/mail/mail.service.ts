@@ -1,30 +1,29 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { log } from 'console';
+import { SlainDTO } from 'src/DTO/slain.dto';
+import { UserDTO } from 'src/DTO/user.dto';
 
 @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) {}
+  constructor(private mailerService: MailerService) { }
 
-  async sendEmail() {
+  async sendEmail(addressee: string, slainDetails: any, userDetails: UserDTO, subject: string = 'הצטרפות למיזם מנציחים') {
 
     await this.mailerService.sendMail({
-      to: ['h0533185978@gmail.com','bsy9031@gmail.com','m0527669018@gmail.com','ts0533110485@gmail.com','pessimargalit@gmail.com',
-    'rut05567@gmail.com','CHAVIDAITSH@gmail.com'],
-      subject: 'הצטרפות למיזם מנציחים',
+      to: addressee,
+      subject: subject,
       template: './confirmation',
-      context: { 
-        nameOfPerson: 'אברך',
-        nameOfSlain:'נרצח',
-        motherSlain:'אמא',
-        fatherSlain:'אבא'
+      context: {
+        nameOfPerson: userDetails.name,
+        nameOfSlain: slainDetails.name,
 
       },
       attachments: [{
         filename: 'logo.png',
-          path: __dirname +'/templates/logo.png',
-         cid: 'logo'
-  }],
+        path: __dirname + '/templates/logo.png',
+        cid: 'logo'
+      }],
 
     });
   }
