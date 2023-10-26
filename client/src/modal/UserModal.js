@@ -118,7 +118,7 @@ export function UserModal() {
 
     return (
         <>
-            <Modal className="modal" show={show} onHide={() => setShow(false)}>
+            <Modal backdrop="static" className="modal" show={show} onHide={() => setShow(false)}>
                 <div class="modal-content">
                     <div class="modal-header" style={{ textAlign: "center" }}>
                         <h5 class="modal-title" id="exampleModalLabel" style={{ margin: "auto" }}>הכנס פרטים בכדי לאשר ולקבל תזכורת למייל</h5>

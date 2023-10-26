@@ -21,7 +21,7 @@ export function ErrorModal() {
 
 
     return (
-        <Modal className="modal" show={show} onHide={handleClose} style={{textAlign: "center"}}>
+        <Modal backdrop="static" className="modal" show={show} onHide={handleClose} style={{textAlign: "center"}}>
             <div class="modal-content">
                 <div class="modal-header">
                     {/* <h5 class="modal-title" id="exampleModalLabel" style={{margin: "auto"}}>אופס</h5> */}
