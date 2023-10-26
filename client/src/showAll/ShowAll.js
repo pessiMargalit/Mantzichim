@@ -120,7 +120,7 @@ const ShowAll = () => {
 
   const openModal = () => {
     if(hasKadish_.current === false && allSelectedOptions.length === 0){
-    navigate('/error', { state: { error: "עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך"} });
+    navigate('/error', { state: { error: ".עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך"} });
     }
     else{
       const masechtotNames =  allSelectedOptions.map(option => option.label).flat();
