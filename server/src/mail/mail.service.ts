@@ -7,16 +7,25 @@ export class MailService {
   constructor(private mailerService: MailerService) {}
 
   async sendEmail() {
-console.log('in Sens email');
 
     await this.mailerService.sendMail({
-      to: 'apartmentbrokerage22@gmail.com',
-      from: 'h0533185978@gmail.com', // override default from
-      subject: '😡',
-      template: './confirmation', // `.hbs` extension is appended automatically
-      // context: { // ✏️ filling curly brackets with content
-      //   name: 'ffff',
-      // },
+      to: ['h0533185978@gmail.com','bsy9031@gmail.com','m0527669018@gmail.com','ts0533110485@gmail.com','pessimargalit@gmail.com',
+    'rut05567@gmail.com','CHAVIDAITSH@gmail.com'],
+      subject: 'הצטרפות למיזם מנציחים',
+      template: './confirmation',
+      context: { 
+        nameOfPerson: 'אברך',
+        nameOfSlain:'נרצח',
+        motherSlain:'אמא',
+        fatherSlain:'אבא'
+
+      },
+      attachments: [{
+        filename: 'logo.png',
+          path: __dirname +'/templates/logo.png',
+         cid: 'logo'
+  }],
+
     });
   }
 }
