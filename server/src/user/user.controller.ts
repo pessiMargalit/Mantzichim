@@ -20,14 +20,21 @@ export class UserController {
 
     @Post()
     async create_user(@Body() user_dto: UserDTO) {
-        this.userService.create(user_dto);
+        try {
+            this.userService.create(user_dto);
 
-        this.slainService.update_masechtot_for_slain(user_dto.slain_id, user_dto.masechtot_name);
+            this.slainService.update_masechtot_for_slain(user_dto.slain_id, user_dto.masechtot_name);
 
-        // return Response...
+            return { message: 'User created successfully' };
 
+        } catch (error) {
+
+            console.error('Error in create_user:', error);
+
+            return { message: 'Failed to create user or update masechtot for slain', error: error.message };
+        }
     }
 
-    
+
 
 }
