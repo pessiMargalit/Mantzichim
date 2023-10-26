@@ -8,17 +8,17 @@ import { join } from 'path';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.gmail.com',
+        host: process.env.HOST,
         port: 587,
         secure: false,
         logger:true,
    auth: {
-          user: 'mantzichim.meizam@gmail.com',
-          pass: 'gmuinbhjesnlghfo',
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.APP_PASS,
         },
       },
       defaults: {
-        from: '"מנציחים" mantzichim.meizam@gmail.com',
+        from: `"מנציחים" ${process.env.MAIL_USERNAME}`,
       },
       template: {
         dir: join(__dirname, 'templates'),
