@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Select from "react-select";
-import "../style/showAll.css";
+import "../style/ShowAll.css";
 import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
