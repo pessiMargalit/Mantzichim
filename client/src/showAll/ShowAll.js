@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
 import Select from "react-select";
-import "../style/showAll.css";
-import { Button } from 'react-bootstrap';
+import "../style/ShowAll.css";
 import { useNavigate } from "react-router-dom";
-
 
 const mishnayot = [
   {
@@ -113,18 +111,18 @@ const ShowAll = () => {
   const hasKadish_ = useRef(false)
 
   if (checkHasKadish) {
-    checkHasKadish.addEventListener("change", function() {
-      hasKadish_.current = this.checked; 
+    checkHasKadish.addEventListener("change", function () {
+      hasKadish_.current = this.checked;
     });
   }
 
   const openModal = () => {
-    if(hasKadish_.current === false && allSelectedOptions.length === 0){
-    navigate('/error', { state: { error: ".עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך"} });
+    if (hasKadish_.current === false && allSelectedOptions.length === 0) {
+      navigate('/error', { state: { error: "עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך" } });
     }
-    else{
-      const masechtotNames =  allSelectedOptions.map(option => option.label).flat();
-    navigate('/user-modal', { state: { masechtotName: masechtotNames, hasKadish:hasKadish_.current} });
+    else {
+      const masechtotNames = allSelectedOptions.map(option => option.label).flat();
+      navigate('/user-modal', { state: { masechtotName: masechtotNames, hasKadish: hasKadish_.current } });
     }
   }
 
@@ -139,7 +137,7 @@ const ShowAll = () => {
       <div className="select-div">
         {mishnayot.map((mishnah) => (
           <div key={mishnah.id} className="mishnah-container">
-            <h3>{mishnah.label}</h3>
+            <h5>{mishnah.label}</h5>
             <div className="select-box">
               <Select
                 id="select"
@@ -151,22 +149,24 @@ const ShowAll = () => {
           </div>
         ))}
         <div className="details-to-model">
-
-          <div className="with-kadish">
-            <h3>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h3>
-            <input
-              id="kadish"
-              name="kadish"
-              type="checkbox"
-            />
+            <div>
+              <div className="with-kadish">
+                <h5>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h5>
+                <input
+                  id="kadish"
+                  name="kadish"
+                  type="checkbox"
+                />
+              </div>
+              {allSelectedOptions.length > 0 ? <div>
+                <h4><>:</>המשניות שזכית לקחת וללמוד</h4>
+                {allSelectedOptions.map((mishnah) => (
+                  <div key={mishnah.value}>{mishnah.label}</div>
+                ))}
+              </div> : <></>}
           </div>
-          {allSelectedOptions.length > 0 ? <div>
-            <h3><>:</>המשניות שזכית לקחת וללמוד</h3>
-            {allSelectedOptions.map((mishnah) => (
-              <div key={mishnah.value}>{mishnah.label}</div>
-            ))}
-          </div> : <></>}
-          <Button variant="Light" id="Button" onClick={openModal}>אישור</Button>
+          <br></br>
+          <button class="btn btn-outline-dark" variant="Light" onClick={openModal}>אישור</button>
         </div>
       </div>
     </>
