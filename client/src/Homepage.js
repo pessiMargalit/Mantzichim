@@ -48,13 +48,13 @@ export function Homepage() {
                 </div>
 
                 <div className="content">
-                    <h1 className="text-title">מיזם מיוחד לסיומי ש"ס ואמירת קדיש לע"נ הקדושים הי"ד במלחמת חרבות ברזל</h1>
+                    <h2 className="text-title">מיזם מיוחד לסיומי ש"ס ואמירת קדיש לע"נ הקדושים הי"ד במלחמת חרבות ברזל</h2>
                     <br></br>
-                    <h2 className="text">{t1}</h2>
-                    <h2 className="text">{t2}</h2>
+                    <br></br>
+                    <h3 className="text">{t1}</h3>
+                    <h3 className="text" id="phone-text-cansle">{t2}</h3>
                     <div className="down">
-                        <h1>הצטרף ללימוד משניות ואמירת קדיש</h1>
-
+                        <h2 className="text-title">הצטרף ללימוד משניות ואמירת קדיש</h2>
                         <svg id="svg-container" onClick={scrollToBottom} xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                             <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
@@ -64,7 +64,7 @@ export function Homepage() {
 
                 <div ref={ref} id="my-div" className="showall">
                     <br></br><br></br><br></br><br></br><br></br><br></br>
-                    <h3>באפשרותך לבחור מסכת אחת או יותר או רק אמירת קדיש</h3>
+                    <h4>באפשרותך לבחור מסכת אחת או יותר או רק אמירת קדיש</h4>
                     <ShowAll></ShowAll>
                 </div>
             </div >

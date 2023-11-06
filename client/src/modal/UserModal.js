@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import axios from "axios";
-import '../style/modal.css'
 
 
 export function UserModal() {
@@ -15,56 +13,63 @@ export function UserModal() {
     const baseUrl = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    const [blockButton, setblockButton] = useState(false);
+    const [XblockButton, setXblockButton] = useState(false);
     const handeClose = () => setShow(false);
     const handeShow = () => setShow(true);
     const location = useLocation();
     const masechtotName = location.state.masechtotName;
+    const [masechtotNamelen, setmasechtotNamelen] = useState(masechtotName.length);
     const hasKadish = location.state.hasKadish;
-    const slain = useRef({});
+    const [hasKadishState, sethasKadishState] = useState(hasKadish);
+    const slain = location.state.slain;
     const isSuccess = useRef(false)
 
-    async function getslainName() {
-        const dataOfSlain = {
-            "masechtot_arr": masechtotName,
-            "kadish": hasKadish
-        }
+    // async function getslainName() {
+    //     const dataOfSlain = {
+    //         "masechtot_arr": masechtotName,
+    //         "kadish": hasKadish
+    //     }
 
-        await axios.get(`${baseUrl}/Slain`, dataOfSlain)
-            .then((response) => {
-                if (response.status >= 200 & response.status <= 300) {
-                    console.log(response.data);
-                    slain.current = response.data;
-                }
-            })
-            .catch((error) => {
-                // if (error.response.status === 404) {
-                //     navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
-                // }
-                // else if (error.response.status >= 400 && error.response.status < 500) {
-                //     navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //     await axios.get(`${baseUrl}/Slain`, dataOfSlain)
+    //         .then((response) => {
+    //             if (response.status >= 200 & response.status <= 300) {
+    //                 console.log(response.data);
+    //                 slain.current = response.data;
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             if (error.response.status === 404) {
+    //                 navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
+    //             }
+    //             else if (error.response.status >= 400 && error.response.status < 500) {
+    //                 navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-                // }
-                // else if (error.response.status >= 500)
-                //  {
-                //     navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-                // }
-                // else{
-                //     navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //             }
+    //             else if (error.response.status >= 500)
+    //              {
+    //                 navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //             }
+    //             else{
+    //                 navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-                // }
-            });
-    }
+    //             }
+    //         });
+    // }
 
 
     useEffect(() => {
         handeShow();
-        getslainName()
+        // getslainName()
     }, [])
 
-
+    const handleClose = () => {
+        setShow(false);
+        navigate('/')
+    };
 
     const schema = yup.object().shape({
-        name: yup.string().required("נא להכניס ערך"),
+        name: yup.string().required("נא להכניס שם"),
         email: yup.string().default(' '),
 
     });
@@ -75,19 +80,16 @@ export function UserModal() {
 
 
     const onSubmit = async (data) => {
-
-        if (masechtotName != []) {
-            data.masechtot_name = masechtotName;
-            data.slain_id = slain.current.id
-        }
-        if (hasKadish === true) {
-            data.kadish = hasKadish
-            data.slain_id = slain.current.id
-        }
+        setblockButton(true);
+        setXblockButton(true);
+        data.masechtot_name = masechtotName;
+        data.slain_id = slain.id
+        data.kadish = hasKadish
         await axios.post(`${baseUrl}/User`, data)
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     isSuccess.current = true;
+                    setXblockButton(false);
                 }
             })
             .catch(error => {
@@ -106,65 +108,64 @@ export function UserModal() {
 
                 }
             });
-        setTimeout(() => {
-            handeClose()
-            navigate('/')
-
-        }, 5000);
-
     }
 
 
     return (
         <>
-            <Modal className="modal" show={show} onHide={() => setShow(false)}>
-                <h4>:שם החייל</h4>
-                <h4>{slain.current.name}</h4>
-                <form className="form" onSubmit={handleSubmit(onSubmit)} >
-                    <>
-                        <div class="form-row">
-                            <div class="form-group">
-
-                                <input id="inputName" class="form-control" type="text" name="name" {...register('name')} />
-                                <label for="name" id="label">שם</label>
-                                <small class="text-danger">
+            <Modal backdrop="static" className="modal" show={show} onHide={() => setShow(false)}>
+                <div class="modal-content">
+                    <div class="modal-header" style={{ textAlign: "center" }}>
+                        <h5 class="modal-title" id="exampleModalLabel" style={{ margin: "auto" }}>הכנס פרטים בכדי לאשר ולקבל תזכורת למייל</h5>
+                        <button disabled={XblockButton} onClick={handleClose} type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" dir="rtl">
+                        <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: "center", margin: "10px" }}>
+                            <div className="form-outline mb-4" style={{ width: "60%", margin: "auto" }}>
+                                <input id="form2Example27" className="form-control"
+                                    placeholder="שם"
+                                    type="text"
+                                    name="name"
+                                    {...register('name')}
+                                />
+                                <small className="text-danger">
                                     {errors?.name && errors.name.message}
                                 </small>
-                                <br></br>
-
-                                <input
-                                    id="inputEmail"
-                                    class="form-control"
+                            </div>
+                            <div className="form-outline mb-4" style={{ width: "60%", margin: "auto" }}>
+                                <input id="form2Example17" className="form-control form-control"
+                                    placeholder="כתובת מייל"
                                     type="email"
                                     name="email"
                                     pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+"
-                                    maxLength="255"
                                     {...register('email')}
                                 />
-                                <label id="label">דואר אלקטרוני</label>
-                                <small class="text-danger">
+                                <small className="text-danger">
                                     {errors?.email && errors.email.message}
                                 </small>
-                                {masechtotName != [] ? <div>
-                                    <p>
-                                        :מסכתות
-                                    </p>
-                                    {masechtotName.map((masechet) => (
-                                        <p>
-                                            {masechet}
-                                        </p>
-                                    ))}
-                                </div> : <></>}
-
-
-
                             </div>
-                        </div>
+                            {masechtotNamelen != 0 ?
+                                <div>
+                                    <p style={{ fontWeight: "bold" }}>המסכתות שזכית לקחת וללמוד:</p>
+                                    {masechtotName.map((masechet) => (
+                                        <p>{masechet}</p>
+                                    ))}
+                                    {hasKadishState &&
+                                        <p style={{ fontWeight: "bold" }}>וזכית לומר קדיש</p>
+                                    }
+                                </div> : <p style={{ fontWeight: "bold" }}>זכית לומר קדיש</p>}
 
-                    </>
-                    <input class="btn btn-outline-dark" type="submit"></input>
-                </form>
-                {isSuccess.current === true ? <h3></h3> : <></>}
+                            <h5 id="slainName">לעילוי נשמת הקדוש:</h5>
+                            <h5>{slain.name}</h5>
+                            <div class="modal-footer" style={{ margn: "auto" }}>
+                                <p style={{color: "brown", marginBottom: "5px"}}>שים לב, כאשר תלחץ על אישור אתה קובע בכך את התחייבותך ללמוד את מה שבחרת. לאחר מכן לא תוכל לשנות את הבחירה או להתחרט</p>
+                                <button disabled={blockButton} className="btn btn-dark btn-lg btn-block">אישור</button></div>
+                        </form>
+                    </div>
+                </div>
+                {isSuccess.current === true ? <h3><>.</>אשריך, זכית לקחת חלק! תודה תזכורת נשלחה למייל</h3> : <></>}
             </Modal>
         </>
     )
