@@ -22,49 +22,49 @@ export function UserModal() {
     const [masechtotNamelen, setmasechtotNamelen] = useState(masechtotName.length);
     const hasKadish = location.state.hasKadish;
     const [hasKadishState, sethasKadishState] = useState(hasKadish);
-    const slain = useRef({});
+
+    const slain = location.state.slain;
     const isSuccess = useRef(false)
 
-    async function getslainName() {
-        // const dataOfSlain = {
-        //     "masechtot_arr": masechtotName,
-        //     "kadish": hasKadish
-        // }
-        await axios.get(`${baseUrl}/slain`)
-        
-            .then((response) => {
-                debugger
-                console.log(response);
-                if (response.status >= 200 & response.status <= 300) {
-                    console.log(response.data);
-                    slain.current = response.data;
-                }
-            })
+    // async function getslainName() {
+    //     const dataOfSlain = {
+    //         "masechtot_arr": masechtotName,
+    //         "kadish": hasKadish
+    //     }
 
-            .catch((error) => {
-                // if (error.response.status === 404) {
-                //     navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
-                // }
-                // else if (error.response.status >= 400 && error.response.status < 500) {
-                //     navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //     await axios.get(`${baseUrl}/Slain`, dataOfSlain)
+    //         .then((response) => {
+    //             if (response.status >= 200 & response.status <= 300) {
+    //                 console.log(response.data);
+    //                 slain.current = response.data;
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             if (error.response.status === 404) {
+    //                 navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
+    //             }
+    //             else if (error.response.status >= 400 && error.response.status < 500) {
+    //                 navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-                // }
-                // else if (error.response.status >= 500)
-                //  {
-                //     navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-                // }
-                // else{
-                //     navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //             }
+    //             else if (error.response.status >= 500)
+    //              {
+    //                 navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+    //             }
+    //             else{
+    //                 navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-                // }
-            });
-    }
+    //             }
+    //         });
+    // }
 
 
     useEffect(() => {
         handeShow();
         console.log('dd');
         getslainName()
+
+        // getslainName()
     }, [])
 
     const handleClose = () => {
@@ -94,6 +94,9 @@ export function UserModal() {
             data.kadish = hasKadish
             data.slain_id = slain.current.id
         }
+        data.masechtot_name = masechtotName;
+        data.slain_id = slain.id
+        data.kadish = hasKadish
         await axios.post(`${baseUrl}/User`, data)
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
@@ -122,7 +125,7 @@ export function UserModal() {
 
     return (
         <>
-            <Modal className="modal" show={show} onHide={() => setShow(false)}>
+            <Modal backdrop="static" className="modal" show={show} onHide={() => setShow(false)}>
                 <div class="modal-content">
                     <div class="modal-header" style={{ textAlign: "center" }}>
                         <h5 class="modal-title" id="exampleModalLabel" style={{ margin: "auto" }}>הכנס פרטים בכדי לאשר ולקבל תזכורת למייל</h5>
@@ -167,7 +170,7 @@ export function UserModal() {
                                 </div> : <p style={{ fontWeight: "bold" }}>זכית לומר קדיש</p>}
 
                             <h5 id="slainName">לעילוי נשמת הקדוש:</h5>
-                            <h5>{slain.current.name}</h5>
+                            <h5>{slain.name}</h5>
                             <div class="modal-footer" style={{ margn: "auto" }}>
                                 <p style={{color: "brown", marginBottom: "5px"}}>שים לב, כאשר תלחץ על אישור אתה קובע בכך את התחייבותך ללמוד את מה שבחרת. לאחר מכן לא תוכל לשנות את הבחירה או להתחרט</p>
                                 <button disabled={blockButton} className="btn btn-dark btn-lg btn-block">אישור</button></div>
