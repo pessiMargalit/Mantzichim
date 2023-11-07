@@ -25,7 +25,7 @@ export class SlainService {
     }
 
     async create(slainData: SlainDTO): Promise<Slain> {
-        const createdslain = new this.slainModel(slainData);        
+        const createdslain = new this.slainModel(slainData);
         return createdslain.save();
     }
 
@@ -34,21 +34,31 @@ export class SlainService {
         // slain.masechtot_arr = all_masechtot;
 
         // console.log("slain: ", slain);
-        
+
         return this.slainModel.updateOne(
             { _id: slain_id },
             {
-                $push: { masechtot_arr:  masechtot_name } 
+                $push: { masechtot_arr: masechtot_name }
             }).exec();
     }
 
-    
+
     async getSlainWithLowestMasechtotCount() {
-        console.log('in service');
-        
-        return await this.slainModel.findOne({'name':'אבו נשנש' });
-       
-        
+        return await this.slainModel.aggregate([
+            {
+                "$project": {
+                    "name": 1,
+                    "kadish": 1,
+                    "yarzeit": 1,
+                    "masechtot_arr":1,
+                    "length": { "$size": "$masechtot_arr" }
+                }
+            },
+
+            { "$sort": { "length": 1 } },
+
+
+        ]).limit(1);
     }
 
 }
