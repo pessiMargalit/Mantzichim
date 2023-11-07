@@ -22,6 +22,7 @@ export function UserModal() {
     const [masechtotNamelen, setmasechtotNamelen] = useState(masechtotName.length);
     const hasKadish = location.state.hasKadish;
     const [hasKadishState, sethasKadishState] = useState(hasKadish);
+
     const slain = location.state.slain;
     const isSuccess = useRef(false)
 
@@ -60,6 +61,9 @@ export function UserModal() {
 
     useEffect(() => {
         handeShow();
+        console.log('dd');
+        getslainName()
+
         // getslainName()
     }, [])
 
@@ -82,6 +86,14 @@ export function UserModal() {
     const onSubmit = async (data) => {
         setblockButton(true);
         setXblockButton(true);
+        if (masechtotName != []) {
+            data.masechtot_name = masechtotName;
+            data.slain_id = slain.current.id
+        }
+        if (hasKadish === true) {
+            data.kadish = hasKadish
+            data.slain_id = slain.current.id
+        }
         data.masechtot_name = masechtotName;
         data.slain_id = slain.id
         data.kadish = hasKadish

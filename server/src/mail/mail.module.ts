@@ -11,8 +11,8 @@ import { join } from 'path';
         host: process.env.HOST,
         port: 587,
         secure: false,
-        logger:true,
-   auth: {
+        logger: true,
+        auth: {
           user: process.env.MAIL_USERNAME,
           pass: process.env.APP_PASS,
         },
@@ -22,7 +22,7 @@ import { join } from 'path';
       },
       template: {
         dir: join(__dirname, 'templates'),
-        adapter: new HandlebarsAdapter(), 
+        adapter: new HandlebarsAdapter(),
         options: {
           strict: true,
         },
@@ -32,4 +32,4 @@ import { join } from 'path';
   providers: [MailService],
   exports: [MailService],
 })
-export class MailModule {}
+export class MailModule { }

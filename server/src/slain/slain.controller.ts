@@ -16,6 +16,13 @@ import { MasechtotAndKadish } from 'src/DTO/masechtot_and_kadish.dto';
 @Controller('slain')
 export class SlainController {
     constructor(private readonly slainService: SlainService) { }
+    @Get()
+    async get_slain_to_pray() {
+        console.log('in ontroller');
+
+        return this.slainService.getSlainWithLowestMasechtotCount();
+        
+    }
 
     @Get()
     async getSlainsByQuery(@Query() conditions: any) {
@@ -36,21 +43,5 @@ export class SlainController {
         return this.slainService.create(slainData);
     }
 
-    // Hadassa and Tamar
 
-    // get: object with: array of masechtot, and boolean- kadish or not
-    // like: {"masechtot_arr": ["כלים","אבות"], "kadish": true}
-    // return: object of slain
-
-    // @Get()
-    // async get_slain_to_pray(@Body() data: MasechtotAndKadish) {
-        // return {
-        //     _id: "6538b4b9d5cb8345ea409444",
-        //         name: "ירון",
-        //         masechtot_arr: ["פרה"],
-        //         kadish: false,
-        //         yarzeit: Date.now()
-        //     }
-        // return this.slainService.get_slain_to_pray(data);
-    // }
 }

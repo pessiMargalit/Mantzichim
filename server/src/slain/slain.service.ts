@@ -25,7 +25,7 @@ export class SlainService {
     }
 
     async create(slainData: SlainDTO): Promise<Slain> {
-        const createdslain = new this.slainModel(slainData);        
+        const createdslain = new this.slainModel(slainData);
         return createdslain.save();
     }
 
@@ -34,27 +34,31 @@ export class SlainService {
         // slain.masechtot_arr = all_masechtot;
 
         // console.log("slain: ", slain);
-        
+
         return this.slainModel.updateOne(
             { _id: slain_id },
             {
-                $push: { masechtot_arr:  masechtot_name } 
+                $push: { masechtot_arr: masechtot_name }
             }).exec();
     }
 
-    
-    // Hadassah and Tamar
 
-    // get: object with: array of masechtot, and boolean- kadish or not
-    // like: {"masechtot_arr": ["כלים","אבות"], "kadish": true}
-    // return: object of slain 
-    // async get_slain_to_pray(data: MasechtotAndKadish): Promise<Slain> {
+    async getSlainWithLowestMasechtotCount() {
+        return await this.slainModel.aggregate([
+            {
+                "$project": {
+                    "name": 1,
+                    "kadish": 1,
+                    "yarzeit": 1,
+                    "masechtot_arr":1,
+                    "length": { "$size": "$masechtot_arr" }
+                }
+            },
 
-        //כאן האלגוריתם שליפה של החלל של הדסה ותמר
-        //נא ליצא את האלגוריתם לפונקציה
-        //וכמובן לא לשכוח א-סינכרוני
+            { "$sort": { "length": 1 } },
 
-    // }
 
+        ]).limit(1);
+    }
 
 }
