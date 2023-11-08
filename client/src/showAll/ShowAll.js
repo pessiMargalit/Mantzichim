@@ -120,47 +120,45 @@ const ShowAll = () => {
     });
   }
   async function getslainName() {
-    const masechtotNames = allSelectedOptions.map(option => option.label).flat();
+    // const masechtotNames = allSelectedOptions.map(option => option.label).flat();
+    // const dataOfSlain = {
+    //     "masechtot_arr": masechtotNames,
+    //     "kadish": hasKadish_.current
+    // }
 
-    const dataOfSlain = {
-        "masechtot_arr": masechtotNames,
-        "kadish": hasKadish_.current
-    }
+    await axios.get(`${baseUrl}/slain`)
+      .then((response) => {
+        console.log("response", response);
+        if (response.status >= 200 & response.status <= 300) {
+          slain.current = response.data[0];
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
+        }
+        else if (error.response.status >= 400 && error.response.status < 500) {
+          navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-    await axios.get(`${baseUrl}/Slain`, dataOfSlain)
-        .then((response) => {
-            if (response.status >= 200 & response.status <= 300) {
-                console.log(response.data);
-                slain.current = response.data;
-            }
-        })
-        .catch((error) => {
-            if (error.response.status === 404) {
-                navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
-            }
-            else if (error.response.status >= 400 && error.response.status < 500) {
-                navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+        }
+        else if (error.response.status >= 500) {
+          navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+        }
+        else {
+          navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
 
-            }
-            else if (error.response.status >= 500)
-             {
-                navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-            }
-            else{
-                navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
+        }
+      });
+  }
 
-            }
-        });
-}
-
-  const openModal = () => {
+  const openModal = async () => {
     if (hasKadish_.current === false && allSelectedOptions.length === 0) {
       navigate('/error', { state: { error: "עליך לבחור לפחות מסכת אחת ללימוד או אמירת קדיש בכדי להמשיך הלאה בתהליך" } });
     }
     else {
-      getslainName()
+      await getslainName()
       const masechtotNames = allSelectedOptions.map(option => option.label).flat();
-      navigate('/user-modal', { state: { masechtotName: masechtotNames, hasKadish: hasKadish_.current ,slain:slain.current} });
+      navigate('/user-modal', { state: { masechtotName: masechtotNames, hasKadish: hasKadish_.current, slain: slain.current } });
     }
   }
 
@@ -187,21 +185,21 @@ const ShowAll = () => {
           </div>
         ))}
         <div className="details-to-model">
-            <div>
-              <div className="with-kadish">
-                <h5>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h5>
-                <input
-                  id="kadish"
-                  name="kadish"
-                  type="checkbox"
-                />
-              </div>
-              {allSelectedOptions.length > 0 ? <div>
-                <h4><>:</>המשניות שזכית לקחת וללמוד</h4>
-                {allSelectedOptions.map((mishnah) => (
-                  <div key={mishnah.value}>{mishnah.label}</div>
-                ))}
-              </div> : <></>}
+          <div>
+            <div className="with-kadish">
+              <h5>האם תרצה לזכות ולאמר גם קדיש לעילוי נשמתו של אחד הקדושים</h5>
+              <input
+                id="kadish"
+                name="kadish"
+                type="checkbox"
+              />
+            </div>
+            {allSelectedOptions.length > 0 ? <div>
+              <h4><>:</>המשניות שזכית לקחת וללמוד</h4>
+              {allSelectedOptions.map((mishnah) => (
+                <div key={mishnah.value}>{mishnah.label}</div>
+              ))}
+            </div> : <></>}
           </div>
           <br></br>
           <button class="btn btn-outline-dark" variant="Light" onClick={openModal}>אישור</button>

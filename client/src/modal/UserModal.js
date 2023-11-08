@@ -22,49 +22,11 @@ export function UserModal() {
     const [masechtotNamelen, setmasechtotNamelen] = useState(masechtotName.length);
     const hasKadish = location.state.hasKadish;
     const [hasKadishState, sethasKadishState] = useState(hasKadish);
-
     const slain = location.state.slain;
     const isSuccess = useRef(false)
 
-    // async function getslainName() {
-    //     const dataOfSlain = {
-    //         "masechtot_arr": masechtotName,
-    //         "kadish": hasKadish
-    //     }
-
-    //     await axios.get(`${baseUrl}/Slain`, dataOfSlain)
-    //         .then((response) => {
-    //             if (response.status >= 200 & response.status <= 300) {
-    //                 console.log(response.data);
-    //                 slain.current = response.data;
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             if (error.response.status === 404) {
-    //                 navigate("/error", { state: { error: "דף זה לא נמצא (שגיאת 404) נסה שוב מאוחר יותר" } });
-    //             }
-    //             else if (error.response.status >= 400 && error.response.status < 500) {
-    //                 navigate("/error", { state: { error: "שגיאת לקוח. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-
-    //             }
-    //             else if (error.response.status >= 500)
-    //              {
-    //                 navigate("/error", { state: { error: "שגיאת שרת. נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-    //             }
-    //             else{
-    //                 navigate("/error", { state: { error: "נראה שיש תקלה או שאין לך חיבור לאינטרנט . נסה שוב מאוחר יותר, באם התקלה ממשיכה אנא צור קשר" } });
-
-    //             }
-    //         });
-    // }
-
-
     useEffect(() => {
         handeShow();
-        console.log('dd');
-        getslainName()
-
-        // getslainName()
     }, [])
 
     const handleClose = () => {
@@ -88,14 +50,14 @@ export function UserModal() {
         setXblockButton(true);
         if (masechtotName != []) {
             data.masechtot_name = masechtotName;
-            data.slain_id = slain.current.id
+            data.slain_id = slain._id
         }
         if (hasKadish === true) {
             data.kadish = hasKadish
-            data.slain_id = slain.current.id
+            data.slain_id = slain._id
         }
         data.masechtot_name = masechtotName;
-        data.slain_id = slain.id
+        data.slain_id = slain._id
         data.kadish = hasKadish
         await axios.post(`${baseUrl}/User`, data)
             .then(response => {
